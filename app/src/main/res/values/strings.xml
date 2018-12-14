@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AdapterEx1</string>
+    <string name="ma_et_name">Name</string>
+    <string name="ma_et_price">Price</string>
+    <string name="ma_bt_ok">Ok</string>
+
+    <string-array name="ma_sp_categories">
+        <item>Select</item>
+        <item>Acessories</item>
+        <item>Audio</item>
+        <item>Strings</item>
+        <item>Keys</item>
+        <item>Wind</item>
+        <item>Percussion</item>
+    </string-array>
+</resources>
