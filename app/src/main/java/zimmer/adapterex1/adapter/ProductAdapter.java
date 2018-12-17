@@ -27,6 +27,8 @@ public class ProductAdapter extends RecyclerView.Adapter{
     private Context context;
     private ArrayList<Product> products;
 
+    private static ClickListener clickListener;
+
     public ProductAdapter(Context context, ArrayList<Product> products) {
         this.context = context;
         this.products = products;
@@ -60,16 +62,38 @@ public class ProductAdapter extends RecyclerView.Adapter{
         return products.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         private final TextView tvName;
         private final TextView tvPrice;
         private final ImageView ivIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             tvName = itemView.findViewById(R.id.pl_et_name);
             tvPrice = itemView.findViewById(R.id.pl_et_price);
             ivIcon = itemView.findViewById(R.id.pl_iv_icon);
         }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.OnItemClick(v, getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            clickListener.OnItemLongClick(v, getAdapterPosition());
+            return true;
+        }
+    }
+
+    public void setOnItemClickListener(ClickListener clickListener){
+        ProductAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener{
+        void OnItemClick(View v, int position);
+        void OnItemLongClick(View v, int position);
     }
 }

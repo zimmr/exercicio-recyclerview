@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "751051176269",
+    "firebase_url": "https://products-register.firebaseio.com",
+    "project_id": "products-register",
+    "storage_bucket": "products-register.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751051176269:android:6f7c813d40bb5eb0",
+        "android_client_info": {
+          "package_name": "zimmer.adapterex1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751051176269-af2n8olu2kk9gnl70u4def3mak7r76pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4yB4zXrNfvrP3anghbOAFgaowi5n6jWY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
 package zimmer.adapterex1.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -37,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
 
+        FirebaseApp.initializeApp(MainActivity.this);
+        final FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final DatabaseReference base = db.getReference("products");
+
         btOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,11 +68,43 @@ public class MainActivity extends AppCompatActivity {
                 p.setName(etName.getText().toString());
                 p.setPrice(Double.parseDouble(etPrice.getText().toString()));
                 p.setCategory(spCategory.getSelectedItem().toString());
-                products.add(p);
-                adapter.notifyDataSetChanged();
+//                products.add(p);
+//                adapter.notifyDataSetChanged();
+
+                base.push().setValue(p);
+
                 clear();
                 close();
                 toast("The product was registered succesfully!");
+            }
+        });
+        //Select * from
+        base.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                products.clear();
+                for (DataSnapshot data: dataSnapshot.getChildren()){
+                    Product p = data.getValue(Product.class);
+                    products.add(p);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        adapter.setOnItemClickListener(new ProductAdapter.ClickListener() {
+            @Override
+            public void OnItemClick(View v, int position) {
+                toast("legal");
+            }
+
+            @Override
+            public void OnItemLongClick(View v, int position) {
+                toast("muito legal");
             }
         });
     }
@@ -96,5 +140,6 @@ public class MainActivity extends AppCompatActivity {
         rvProducts.setAdapter(adapter);
         rvProducts.setHasFixedSize(true);
         rvProducts.setLayoutManager(new LinearLayoutManager(this));
+
     }
 }
